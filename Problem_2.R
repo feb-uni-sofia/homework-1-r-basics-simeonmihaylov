@@ -18,6 +18,10 @@ xmin [xmin < avgMIN]
 xmin [xmax > avgMAX]
 
 # f)
+
+## NOTE: not DRY (don't repeat yourself). Assign the dates to a vector and
+## then use that vector to assign names to the elements of xmin and xmax
+
 names(xmin) <- c('Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun')
 names(xmax) <- c('Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun')
 
@@ -41,8 +45,25 @@ fivedaystemp1 <- data.frame(
   Min_temp_Fahr = xmin[seq(1:5)]*9/5 + 32)
 fivedaystemp1
 
+## This is not exclusion.
 fivedaystemp2 <- data.frame(
   Max_temp_Fahr = xmax[seq(length(xmax) - 2)]*9/5 + 32,
   Min_temp_Fahr = xmin[seq(length(xmin) - 2)]*9/5 + 32  
 )
 fivedaystemp2
+
+## Better:
+
+temperatures <- within(temperatures, {
+  xminFahrenheit <- xmin * (9/5) + 32
+  xmaxFahrenheit <- xmax * (9/5) + 32
+})
+
+temperaturesFahrenheit <- temeratures[, c('xminFahrenheit', 'xmaxFahrenheit)]
+
+## Easier to subset the whole data.frame instead of 
+## doing this for each vector used in its construction
+
+temperaturesFahrenheit[1:5, ]
+temperaturesFahrenheit[-(6:7), ]
+

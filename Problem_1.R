@@ -5,7 +5,13 @@ x <- c(4, 1, 1, 4)
 # b)
 y <- c(1, 4)
 
-# c) The two vectors do not share the same size. The vector Y transforms itself to a four-digit vector because the length is different (it is smaller).
+## Avoid very long lines
+
+# c) The two vectors do not share the same size. 
+## The vector Y transforms itself to a 
+## four-digit vector because the 
+## length is different (it is smaller).
+
 x-y
 
 # d)
